@@ -1,13 +1,22 @@
 import React, { useState } from "react";
 
 const Form = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,//(spread operator) ensures that unchanged fields retain their values.
+      [e.target.name]: e.target.value, // Dynamically update state
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Submitted:", { name, email, password });
+    console.log("Form Submitted:", formData);
   };
 
   return (
@@ -17,8 +26,9 @@ const Form = () => {
           Name:
           <input
             type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
           />
         </label>
         <br />
@@ -26,8 +36,9 @@ const Form = () => {
           Email:
           <input
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
           />
         </label>
         <br />
@@ -35,8 +46,9 @@ const Form = () => {
           Password:
           <input
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
           />
         </label>
         <br />
